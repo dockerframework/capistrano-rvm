@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 DOCKER_IMAGE="dockerframework/capistrano-rvm"
-DOCKER_TAG="18.04-2.7.1"
+DOCKER_TAG="latest"
 
 #### Halt script on error
 set -e
