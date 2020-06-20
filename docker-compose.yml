@@ -1,0 +1,27 @@
+version: '3.6'
+
+services:
+
+#================================================================================================
+# Capistrano RVM (Ruby Version Manager)
+#================================================================================================
+  capistrano-rvm:
+    restart: unless-stopped
+    container_name: capistrano_rvm_${UBUNTU_VERSION:-18.04}_${RUBY_VERSION:-2.7.1}
+    build:
+      context: .
+      args:
+        - UBUNTU_VERSION=${UBUNTU_VERSION:-18.04}
+        - RUBY_VERSION=${RUBY_VERSION:-2.7.1}
+    ports:
+      - "${RVM_PORT:-326}:22"
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ${DATA_RUBY:-/data/deployment}:/root/deploy
+      - ${PATH_SSH:-$HOME/.ssh}:/root/.ssh
+    environment:
+      - TZ="Asia/Jakarta"
+      - UBUNTU_VERSION=${UBUNTU_VERSION:-18.04}
+      - RUBY_VERSION=${RUBY_VERSION:-2.7.1}
+    privileged: true
+    tty: true
